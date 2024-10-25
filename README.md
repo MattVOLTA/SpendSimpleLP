@@ -1,3 +1,3 @@
-# sb1-xspmkh
+# SpendSimpleLP
 
 [Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/MattVOLTA/sb1-xspmkh)
