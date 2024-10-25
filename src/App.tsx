@@ -63,7 +63,7 @@ function App() {
           <div className="flex items-center h-20">
             <div className="flex items-center gap-3">
               <img 
-                src="/logo.png" 
+                src="/images/sslogo.png" 
                 alt="Spend Simple Logo" 
                 className="h-11 w-11"
               />
