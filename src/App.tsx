@@ -3,59 +3,12 @@ import { Camera, PieChart, DollarSign, ArrowRight } from 'lucide-react';
 import { FeatureCard } from './components/FeatureCard';
 import { ListItem } from './components/ListItem';
 import { PhoneDemo } from './components/PhoneDemo';
-import { PhoneInput } from './components/PhoneInput';
 import { Footer } from './components/Footer';
 
 // Get webhook URL from environment variable
 const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL;
 
 function App() {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setIsSuccess(false);
-
-    // Validate phone number
-    const cleanNumber = phoneNumber.replace(/\D/g, '');
-    if (cleanNumber.length !== 10) {
-      setError('Please enter a valid 10-digit phone number');
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const response = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': import.meta.env.VITE_API_KEY, // Add API key for security
-        },
-        body: JSON.stringify({ phoneNumber: cleanNumber }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit');
-      }
-
-      setIsSuccess(true);
-      
-      setTimeout(() => {
-        setPhoneNumber('');
-        setIsSuccess(false);
-      }, 3000);
-      
-    } catch (err) {
-      setError('Failed to submit. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-white">
       <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
@@ -88,16 +41,15 @@ function App() {
                 Track your expenses effortlessly through text messages. No complex apps, no hassle.
                 Just simple, effective budget management.
               </p>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <PhoneInput 
-                  value={phoneNumber} 
-                  onChange={setPhoneNumber}
-                  error={error}
-                  isSubmitting={isSubmitting}
-                  isSuccess={isSuccess}
-                />
+              <div className="space-y-4">
+                <a 
+                  href="https://app.spendsimple.co" 
+                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                >
+                  Get Started <ArrowRight className="ml-2 w-4 h-4" />
+                </a>
                 <p className="text-sm text-gray-500">No credit card required • 30-day free trial</p>
-              </form>
+              </div>
             </div>
             <div className="hidden md:flex justify-center lg:justify-end">
               <PhoneDemo />
@@ -140,20 +92,19 @@ function App() {
             Join thousands of others who have taken control of their finances with Spend Simple.
           </p>
           <div className="max-w-md mx-auto">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <PhoneInput 
-                value={phoneNumber} 
-                onChange={setPhoneNumber}
-                error={error}
-                isSubmitting={isSubmitting}
-                isSuccess={isSuccess}
-              />
+            <div className="space-y-4">
+              <a 
+                href="https://app.spendsimple.co" 
+                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+              >
+                Get Started <ArrowRight className="ml-2 w-4 h-4" />
+              </a>
               <ul className="flex flex-col sm:flex-row justify-center gap-4 text-gray-600">
                 <ListItem text="30-day free trial" />
                 <ListItem text="No credit card required" />
                 <ListItem text="Cancel anytime" />
               </ul>
-            </form>
+            </div>
           </div>
         </div>
       </section>
