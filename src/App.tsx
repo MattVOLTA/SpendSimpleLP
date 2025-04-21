@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, PieChart, DollarSign, ArrowRight } from 'lucide-react';
+import { Camera, PieChart, DollarSign, ArrowRight, Check } from 'lucide-react';
 import { FeatureCard } from './components/FeatureCard';
 import { ListItem } from './components/ListItem';
 import { PhoneDemo } from './components/PhoneDemo';
@@ -9,6 +9,16 @@ import { Footer } from './components/Footer';
 const WEBHOOK_URL = import.meta.env.VITE_WEBHOOK_URL;
 
 function App() {
+  const [isWaitlistJoined, setIsWaitlistJoined] = useState(false);
+  
+  const handleJoinWaitlist = () => {
+    setIsWaitlistJoined(true);
+    // Reset after 3 seconds
+    setTimeout(() => {
+      setIsWaitlistJoined(false);
+    }, 3000);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-white">
       <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
@@ -42,12 +52,20 @@ function App() {
                 Just simple, effective budget management.
               </p>
               <div className="space-y-4">
-                <a 
-                  href="https://app.spendsimple.co" 
+                <button 
+                  onClick={handleJoinWaitlist}
                   className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
                 >
-                  Get Started <ArrowRight className="ml-2 w-4 h-4" />
-                </a>
+                  {isWaitlistJoined ? (
+                    <>
+                      <Check className="mr-2 w-4 h-4" /> Thanks for joining!
+                    </>
+                  ) : (
+                    <>
+                      Join the waiting list <ArrowRight className="ml-2 w-4 h-4" />
+                    </>
+                  )}
+                </button>
                 <p className="text-sm text-gray-500">No credit card required • 30-day free trial</p>
               </div>
             </div>
@@ -93,12 +111,20 @@ function App() {
           </p>
           <div className="max-w-md mx-auto">
             <div className="space-y-4">
-              <a 
-                href="https://app.spendsimple.co" 
+              <button 
+                onClick={handleJoinWaitlist}
                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
               >
-                Get Started <ArrowRight className="ml-2 w-4 h-4" />
-              </a>
+                {isWaitlistJoined ? (
+                  <>
+                    <Check className="mr-2 w-4 h-4" /> Thanks for joining!
+                  </>
+                ) : (
+                  <>
+                    Join the waiting list <ArrowRight className="ml-2 w-4 h-4" />
+                  </>
+                )}
+              </button>
               <ul className="flex flex-col sm:flex-row justify-center gap-4 text-gray-600">
                 <ListItem text="30-day free trial" />
                 <ListItem text="No credit card required" />
